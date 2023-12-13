@@ -16,20 +16,22 @@ analysis = ""
 with open (csvpath,'r',encoding = "utf-8") as csv_file:
     csv_reader = csv.reader(csv_file, delimiter = ",")
     next(csv_file)
-    
+    #loop through rows
     for row in csv_reader:
         candidate_name = row[2]
         total_votes += 1
-        
+        #find unique candidate names
         if candidate_name not in candidates_dict:
-            candidates_dict[candidate_name] = 1
+            candidates_dict[candidate_name] = 1 # initialize name = 1 vote
         else:
-            candidates_dict[candidate_name] += 1 # increase vote_count
-        
+            candidates_dict[candidate_name] += 1 # increase vote count
+    #loop through dictionary   
     for candidate_name in candidates_dict:
-        
+        #calculate percent
         vote_percent = (candidates_dict[candidate_name] / total_votes) * 100
         percentage_dict[candidate_name] = vote_percent
+        
+        #find winner (max vote percent)
         if vote_percent > max_percent:
             max_percent = vote_percent
             winner = candidate_name
